@@ -1,0 +1,17 @@
+* C:\Users\Cglee\AppData\Local\LTspice\mobius_examples\swmxtst_npmirror_schem.asc
+XX1 NC_01 BUS10 nmos_currentmirror
+XX2 BUS10 NC_02 pmos_currentmirror
+
+* block symbol definitions
+.subckt nmos_currentmirror in out
+XM1 in in 0 0 NMOS_mobius m=1
+XM2 out in 0 0 NMOS_mobius m=1
+.ends nmos_currentmirror
+
+.subckt pmos_currentmirror gate drain
+XM1 gate gate VDD VDD PMOS_mobius m=1
+XM2 drain gate VDD VDD PMOS_mobius m=1
+.ends pmos_currentmirror
+
+.backanno
+.end

@@ -1,0 +1,40 @@
+* C:\Users\cgleekel\OneDrive\Documents\LTspiceXVII\mobius_circuits_cg\mota_schem.asc
+XX1 NC_01 NC_02 BUS03 BUS04 NC_03 NC_04 NC_05 nmos_currentmirror_array
+XX2 NC_06 BUS01 BUS03 dp_nmos_1x_a
+XX3 NC_07 BUS02 BUS03 dp_nmos_1x_b
+XX4 BUS01 BUS02 pmos_currentmirror
+XX5 BUS04 BUS02 cs_pmos_4x_a
+
+* block symbol definitions
+.subckt nmos_currentmirror_array in out1 out2 out4 out8 out16 out32
+XM1 in in 0 0 NMOS_mobius m=1
+XM2 out1 in 0 0 NMOS_mobius m=1
+XM3 out2 in 0 0 NMOS_mobius m=2
+XM4 out4 in 0 0 NMOS_mobius m=4
+XM5 out8 in 0 0 NMOS_mobius m=8
+XM6 out16 in 0 0 NMOS_mobius m=16
+XM7 out32 in 0 0 NMOS_mobius m=32
+.ends nmos_currentmirror_array
+
+.subckt dp_nmos_1x_a gate drain source
+XM1 drain gate source 0 NMOS_mobius m=1
+.ends dp_nmos_1x_a
+
+.subckt dp_nmos_1x_b gate drain source
+XM1 drain gate source 0 NMOS_mobius m=1
+.ends dp_nmos_1x_b
+
+.subckt pmos_currentmirror gate drain
+XM1 gate gate VDD VDD PMOS_mobius m=1
+XM2 drain gate VDD VDD PMOS_mobius m=1
+.ends pmos_currentmirror
+
+.subckt cs_pmos_4x_a drain gate
+XM1 drain gate VDD VDD PMOS_mobius m=4
+.ends cs_pmos_4x_a
+
+* Common Source
+* Current Mirror\n1 : 1
+* Current Mirror Array
+.backanno
+.end

@@ -9,7 +9,7 @@ sys.path.append("")
 class TestBitStream(unittest.TestCase):
     def setUp(self):
         self.bs = BitStream()
-        self.bs.netlistInput("../circuit_data/netlist_catalog/test_schem_inv_nl.txt")
+        self.bs.netlistInput("../../circuit_data/netlist_catalog/test_schem_inv_nl.txt")
         bitstream = self.bs.generateBitstream()
 
     # # def test_manualInput(self):
@@ -49,7 +49,7 @@ class TestBitStream(unittest.TestCase):
 
     def test_compareFile(self):
         # Test compareFile method
-        cfpath = "../circuit_data/bitstream_catalog/inv1x_schem_nl.txt"
+        cfpath = "../../circuit_data/bitstream_catalog/inv1x_schem_nl.txt"
         self.bs.writeBitFile(cfpath)
         self.assertTrue(self.bs.compareFile(cfpath))
 

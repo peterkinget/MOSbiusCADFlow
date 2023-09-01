@@ -71,7 +71,7 @@ def generate_clock_signal(channel, samples_per_period):
     duty_cycle = 0.5
     padding_lst_clk = [0] * int(2 * NUM_BITS_PADDING)
     clk_signal = [(i + 1) % 2 for i in range(NUM_BITS * 2)] # generate 1,0 pattern for each bit to represent clock period
-    clk_signal = ([1] * 2) + clk_signal + ([0] * 2) # trigger start with 1, end with 0 (each for a full clock period)
+    clk_signal = ([0] * 2) + clk_signal + ([0] * 2) # trigger start with 1, end with 0 (each for a full clock period)
     
     clk_signal = np.repeat(clk_signal, (samples_per_period // 2)) # extend each value from its current index in the list
     # clk_signal = np.arange(samples_per_period) < (duty_cycle * samples_per_period)
@@ -85,7 +85,7 @@ def generate_clock_signal(channel, samples_per_period):
 
 def generate_data_signal(channel, bitstream, samples_per_period):
     padding_lst = [0] * NUM_BITS_PADDING
-    bitstream = [1] + bitstream + [1]
+    bitstream = [0] + bitstream + [0]
     data_signal = np.repeat(bitstream, samples_per_period)  # repeat each bit in the bitstream samples_per_period times
     buffer_data = list(map(lambda s: int(s) << channel, data_signal))
     return np.array(buffer_data)
@@ -93,7 +93,7 @@ def generate_data_signal(channel, bitstream, samples_per_period):
 
 def generate_enable_signal(channel, samples_per_period):
     padding_lst = [0] * NUM_BITS_PADDING
-    enable_signal = [1] + ([0] * NUM_BITS) + [1]
+    enable_signal = [0] + ([0] * NUM_BITS) + [1]
     enable_signal = np.repeat(enable_signal, samples_per_period)
     buffer_enable1 = list(map(lambda s: int(s) << channel, enable_signal))
     buffer_enable2 = list(map(lambda s: int(s) << channel+1, enable_signal))
@@ -102,13 +102,20 @@ def generate_enable_signal(channel, samples_per_period):
     
     return buffer_enable
 
+def generate_trigger_signal(channel, samples_per_period):
+    trigger_signal = [1] + ([0] * NUM_BITS) + [1]
+    trigger_signal = np.repeat(trigger_signal, samples_per_period)
+    buffer_trigger = list(map(lambda s: int(s) << channel, trigger_signal))
+    return np.array(buffer_trigger)
+
 
 def generate_buffer(channels: List[int], bitstream: List[int], samples_per_period: int):
     samples_per_period = samples_per_period
-    channel_enable, channel_clk, channel_data = channels
+    channel_enable, channel_clk, channel_data, channel_trigger = channels
     clock_samples = generate_clock_signal(channel_clk, samples_per_period)
     data_samples = generate_data_signal(channel_data, bitstream, samples_per_period)
     enable_samples = generate_enable_signal(channel_enable, samples_per_period)
+    trigger_samples = generate_trigger_signal(channel_trigger, samples_per_period)
     buffer = (clock_samples + data_samples + enable_samples).tolist()
     return buffer
 

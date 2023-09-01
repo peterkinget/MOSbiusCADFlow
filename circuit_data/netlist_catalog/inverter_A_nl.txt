@@ -1,0 +1,11 @@
+* C:\Users\Cglee\OneDrive\Documents\LTspiceXVII\mobius_circuits_cg\Draft1.asc
+XX3 BUS06 BUS06 NC_01 inverter_a
+
+* block symbol definitions
+.subckt inverter_a inn inp out
+XM1 out inn 0 0 NMOS_mobius m=16
+XM2 out inp VDD VDD PMOS_mobius m=16
+.ends inverter_a
+
+.backanno
+.end

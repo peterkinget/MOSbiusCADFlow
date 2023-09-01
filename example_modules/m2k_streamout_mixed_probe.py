@@ -4,7 +4,6 @@ import time
 import numpy as np
 
 import sys
-
 sys.path.append("generation_modules/src")
 
 from BitStream import BitStream

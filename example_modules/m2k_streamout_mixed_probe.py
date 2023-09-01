@@ -4,7 +4,7 @@ import time
 import numpy as np
 
 import sys
-sys.path.append("generation_modules/src")
+sys.path.append("generation_modules\src")
 
 from BitStream import BitStream
 from m2k_streamout_utils2 import generate_buffer, get_available_sampling_params

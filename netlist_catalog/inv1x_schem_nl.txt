@@ -1,0 +1,25 @@
+* C:\Users\Cglee\AppData\Local\LTspice\mobius_examples\inv1x_schem.asc
+XX1 BUS01 BUS02 BUS09 dp_nmos_1x_a
+XX2 BUS02 BUS01 BUS10 dp_pmos_1x_a
+XX3 BUS10 chip_vdd
+XX4 BUS09 chip_vss
+
+* block symbol definitions
+.subckt dp_nmos_1x_a gate drain source
+XM1 drain gate source 0 NMOS_mobius m=1
+.ends dp_nmos_1x_a
+
+.subckt dp_pmos_1x_a drain gate source
+XM1 drain gate source VDD PMOS_mobius m=1
+.ends dp_pmos_1x_a
+
+.subckt chip_vdd vddpin
+V1 vddpin VDD 0
+.ends chip_vdd
+
+.subckt chip_vss vsspin
+V1 0 vsspin 0
+.ends chip_vss
+
+.backanno
+.end

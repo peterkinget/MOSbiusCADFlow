@@ -1,12 +1,15 @@
 import unittest
+import sys
 import os
+sys.path.append("../src/")
+
 from BitStream import BitStream
 
-
+sys.path.append("")
 class TestBitStream(unittest.TestCase):
     def setUp(self):
         self.bs = BitStream()
-        self.bs.netlistInput("test_schem_inv_nl.txt")
+        self.bs.netlistInput("../../circuit_data/netlist_catalog/test_schem_inv_nl.txt")
         bitstream = self.bs.generateBitstream()
 
     # # def test_manualInput(self):
@@ -46,19 +49,19 @@ class TestBitStream(unittest.TestCase):
 
     def test_compareFile(self):
         # Test compareFile method
-        cfpath = "output_bitstream_tst.txt"
+        cfpath = "../../circuit_data/bitstream_catalog/inv1x_schem_nl.txt"
         self.bs.writeBitFile(cfpath)
         self.assertTrue(self.bs.compareFile(cfpath))
 
     def test_writeBitFile(self):
         # Test writeBitFile method
-        output_path = "test_output_bitstream.txt"
+        output_path = "outputs/test_bitstream.txt"
         self.bs.writeBitFile(output_path)
         self.assertTrue(os.path.exists(output_path))
 
     def test_writeHexFile(self):
         # Test writeHexFile method
-        output_path = "test_output_hexstring.txt"
+        output_path = "outputs/test_hexstream.txt"
         self.bs.writeHexFile(output_path)
         self.assertTrue(os.path.exists(output_path))
 

@@ -10,7 +10,7 @@ DIGITAL_CH_DATA = 2
 
 
 NUM_BITS = 650
-NUM_BITS_PADDING = 5  # padding clock cycles for the start and end of the buffer
+NUM_BITS_PADDING = 0  # padding clock cycles for the start and end of the buffer
 
 
 
@@ -70,11 +70,10 @@ class SamplingParams:
 def generate_clock_signal(channel, samples_per_period):
     duty_cycle = 0.5
     padding_lst_clk = [0] * int(2 * NUM_BITS_PADDING)
-    clk_signal = [(i + 1) % 2 for i in range(1300)]
-    clk_signal = padding_lst_clk + clk_signal + padding_lst_clk
+    clk_signal = [(i + 1) % 2 for i in range(NUM_BITS * 2)] # generate 1,0 pattern for each bit to represent clock period
+    clk_signal = ([0] * 2) + clk_signal + ([0] * 2) # trigger start with 1, end with 0 (each for a full clock period)
     
-    clk_signal = np.repeat(clk_signal, (samples_per_period // 2))
-    print(clk_signal)
+    clk_signal = np.repeat(clk_signal, (samples_per_period // 2)) # extend each value from its current index in the list
     # clk_signal = np.arange(samples_per_period) < (duty_cycle * samples_per_period)
     buffer_clk = list(
         map(lambda s: int(s) << channel, clk_signal)
@@ -86,7 +85,7 @@ def generate_clock_signal(channel, samples_per_period):
 
 def generate_data_signal(channel, bitstream, samples_per_period):
     padding_lst = [0] * NUM_BITS_PADDING
-    bitstream = padding_lst + bitstream + padding_lst
+    bitstream = [0] + bitstream + [0]
     data_signal = np.repeat(bitstream, samples_per_period)  # repeat each bit in the bitstream samples_per_period times
     buffer_data = list(map(lambda s: int(s) << channel, data_signal))
     return np.array(buffer_data)
@@ -94,18 +93,29 @@ def generate_data_signal(channel, bitstream, samples_per_period):
 
 def generate_enable_signal(channel, samples_per_period):
     padding_lst = [0] * NUM_BITS_PADDING
-    enable_signal = padding_lst + ([1] * NUM_BITS) + padding_lst
+    enable_signal = [0] + ([0] * NUM_BITS) + [1]
     enable_signal = np.repeat(enable_signal, samples_per_period)
-    buffer_enable = list(map(lambda s: int(s) << channel, enable_signal))
-    return np.array(buffer_enable)
+    buffer_enable1 = list(map(lambda s: int(s) << channel, enable_signal))
+    buffer_enable2 = list(map(lambda s: int(s) << channel+1, enable_signal))
+    buffer_enable3 = list(map(lambda s: int(s) << channel+2, enable_signal))
+    buffer_enable = np.array(buffer_enable1) + np.array(buffer_enable2) + np.array(buffer_enable3)
+    
+    return buffer_enable
+
+def generate_trigger_signal(channel, samples_per_period):
+    trigger_signal = [1] + ([0] * NUM_BITS) + [1]
+    trigger_signal = np.repeat(trigger_signal, samples_per_period)
+    buffer_trigger = list(map(lambda s: int(s) << channel, trigger_signal))
+    return np.array(buffer_trigger)
 
 
 def generate_buffer(channels: List[int], bitstream: List[int], samples_per_period: int):
     samples_per_period = samples_per_period
-    channel_enable, channel_clk, channel_data = channels
+    channel_enable, channel_clk, channel_data, channel_trigger = channels
     clock_samples = generate_clock_signal(channel_clk, samples_per_period)
     data_samples = generate_data_signal(channel_data, bitstream, samples_per_period)
     enable_samples = generate_enable_signal(channel_enable, samples_per_period)
+    trigger_samples = generate_trigger_signal(channel_trigger, samples_per_period)
     buffer = (clock_samples + data_samples + enable_samples).tolist()
     return buffer
 
@@ -138,7 +148,7 @@ def optimize_params(max_sampling_frequency: int, max_clock_frequency: int, max_s
 
 def generate_sample_params(fclock: int, fsample: int):
     samples_per_period = int(np.ceil(fsample / fclock))
-    buff_size = (NUM_BITS + 2 * NUM_BITS_PADDING) * samples_per_period
+    buff_size = (NUM_BITS + 2) * samples_per_period
     if buff_size > 64000:
         print("Warning: buffer size exceeds maximum memory depth of 32000 samples by {} samples".format(buff_size - 32000))
         # raise ValueError(
@@ -150,3 +160,21 @@ def generate_sample_params(fclock: int, fsample: int):
         )
         
     return(samples_per_period, buff_size)
+
+def get_available_sampling_params(ctx_digital, mem_depth_max):
+    fs_list = []
+    base_list = [int(100e6), int(10e6), int(1e6)]
+    for fb in base_list:
+        fs_list.append(int(ctx_digital.setSampleRateOut(fb)))
+        fs_list.append(int(ctx_digital.setSampleRateOut(fb // 2)))
+        fs_list.append(int(ctx_digital.setSampleRateOut(fb // 4)))
+    for fs in fs_list:
+        n=4
+        while n <= mem_depth_max // 652:
+            total_samples = n * 652
+            fclk = fs / n
+            if total_samples % 4 == 0 and fclk == int(fclk):
+                stream_time = (total_samples / fs) * 1000 # in ms
+                yield(fs, int(fclk), n, total_samples, stream_time)
+            n += 2
+    

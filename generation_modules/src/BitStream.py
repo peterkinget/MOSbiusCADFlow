@@ -239,12 +239,21 @@ class BitStream:
             fid.write(self.hexstring)
             fid.close()
 
-    # stream in all zeros to reset the chip
+    # public method stream in all zeros to reset the chip
     def zeroStream(self):
         self._checkInput()
         zero_stream = [0] * 650
         return zero_stream
     
+    # public method to convert the active pins to the package numbering scheme
+    def convertToPackage(self):
+        self._checkInput()
+        package_pins = []
+        for aplist in self.active_pinlists:
+            pl = [((i+8) % 68 + 1)for i in aplist]
+            package_pins.append(pl)
+            
+        return package_pins
     #  private helper method returns a stripped netlist that only contains the lines that define instance port connections
     def _readNetlist(self, nfp):
         with open(nfp, "r") as f:

@@ -3,7 +3,7 @@ with the Mobius chip.
 
 ## connections_to_bitstream
 
-*  [connections_to_bitstream]{connections_to_bitstream) contains is a
+*  [connections_to_bitstream](./connections_to_bitstream) contains is a
   python script developed by PK to converted a connections.json file
   into a bitstream to program the Mobius chip.
 

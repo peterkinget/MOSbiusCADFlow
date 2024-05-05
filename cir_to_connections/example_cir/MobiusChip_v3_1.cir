@@ -1,0 +1,52 @@
+* /Users/peterkinget/Library/CloudStorage/GoogleDrive-pk171@columbia.edu/My Drive/Work/KingetGroup_Shared/Projects/MOBIUS_MOSCircuitLabOnChip/LTspice/library 3stage_RO tsmc025_public/MobiusChip_v3_1.asc
+XX6 BUS03 BUS01 BUS10 BUS10 dp_nmos_4x_a
+XX7 BUS03 BUS01 BUS10 BUS10 dp_nmos_4x_b
+V1 VDD 0 {VDD}
+XX13 BUS01 BUS03 BUS09 BUS09 dp_pmos_4x_a
+XX14 BUS01 BUS03 BUS09 BUS09 dp_pmos_4x_b
+XX17 BUS02 BUS02 BUS03 inverter_a
+XX18 BUS01 BUS01 BUS02 inverter_b
+I1 BUS01 BUS10 PWL(0 0 10n 1m 20n 0)
+V2 N001 BUS10 PULSE(0 2.5 0 10n 10n 1u 2u)
+C1 BUS02 BUS10 {Cpar}
+C2 BUS03 BUS10 {Cpar}
+C3 BUS01 BUS10 {Cpar}
+R1 BUS10 0 0.001
+R2 VDD BUS09 0.001
+
+* block symbol definitions
+.subckt dp_nmos_4x_a gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_a
+
+.subckt dp_nmos_4x_b gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_b
+
+.subckt dp_pmos_4x_a drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_a
+
+.subckt dp_pmos_4x_b drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_b
+
+.subckt inverter_a inn inp out
+XM1 out inn 0 0 NMOS_mobius m=16
+XM2 out inp VDD VDD PMOS_mobius m=16
+.ends inverter_a
+
+.subckt inverter_b inn inp out
+XM1 out inn 0 0 NMOS_mobius m=16
+XM2 out inp VDD VDD PMOS_mobius m=16
+.ends inverter_b
+
+.global VDD
+.param VDD = 2.5 Cpar=200p
+.inc transistor_models_tsmc025_public.inc
+.tran 5u
+.meas tran zc1 find time when v(bus01) = 1.25 rise=20
+.meas tran zc2 find time when v(bus01) = 1.25 rise=21
+.meas tran freq param 1/(zc2-zc1)
+.backanno
+.end

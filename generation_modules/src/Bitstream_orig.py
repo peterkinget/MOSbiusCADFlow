@@ -1,9 +1,6 @@
 # Author: Cade Gleekel
 # Created: 7/6/2023
 # Description: Bitstream Class for Mobius Chip digital configuration file generation.
-#
-# Edits: Peter Kinget
-# May 2024
 
 """
 public class attributes (
@@ -119,15 +116,11 @@ class BitStream:
         # return inputs, abuses
 
     #  public method to generate bsGen input lists from netlist file located in netlist_catalog (by setting active_buslist and active_pinlists attributes)
-    def netlistInput(self, nfpath, debug=False):
+    def netlistInput(self, nfpath):
         netlist = self._readNetlist(nfpath)
         ab_members = [[] for i in range(10)]
         ab_numbers = []
 
-        if debug:
-            for line in netlist:
-                print(line)
-            
         for line in netlist:
             subckt_key = line[-1]
             icount = 0  # line item count
@@ -238,21 +231,6 @@ class BitStream:
             fid.writelines(bitlines)
             fid.close()
 
-    #  public method to write the output bitmatrix as a .csv file to a specified path
-    def writeCsvBitFile(self, output_path: str):
-        self._checkInput()
-        bitlines = []
-        for bus in self.bitmatrix:
-            # bus_str = list(map(str, bus))
-            bus_str = [ f"{bit}, " for bit in bus ] 
-            bus_str = "".join(bus_str)
-            # bus_str += "\n"
-            bitlines.append(bus_str)
-
-        with open(output_path, "w") as fid:
-            fid.writelines(bitlines)
-            fid.close()
-
     # public method to write the output hexstring as a .txt file to a specified path
     def writeHexFile(self, output_path: str):
         self._checkInput()
@@ -284,11 +262,10 @@ class BitStream:
         # create a list of strings for all instance def lines in netlist, ignore rest
         netlist_stripped = []
         for line in lines[1:]:
-            # if line[0] == "*" or line[0] == "\n":
-            #     return netlist_stripped
-            # PK select only the lines that start with XX which corresponds to Mobius subcircuits
-            if line[0:2] == 'XX':
-                netlist_stripped.append(line.split())
+            if line[0] == "*" or line[0] == "\n":
+                return netlist_stripped
+            netlist_stripped.append(line.split())
+
         return netlist_stripped
 
     #  private helper method identifies and returns active bus numbers from subckt instance port connections (returns 0 if not active bus)

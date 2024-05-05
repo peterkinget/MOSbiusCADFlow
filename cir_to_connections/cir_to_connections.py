@@ -11,10 +11,10 @@ from BitStream import BitStream
 
 def cir_to_connections(circ_filename, debug=False):
     example_bitstream = BitStream()
-    example_bitstream.netlistInput(netlist_path, debug=debug)
+    example_bitstream.netlistInput(circ_filename, debug=debug)
     connections = {}
     for i in range(len(example_bitstream.active_buslist)):
-        connections[f"BUS{example_bitstream.active_buslist[i]}"] = example_bitstream.active_pinlists[i]
+        connections[f"{example_bitstream.active_buslist[i]}"] = example_bitstream.active_pinlists[i]
 
     return connections
 
@@ -37,5 +37,5 @@ if __name__ == "__main__":
  
     connections = cir_to_connections(args.input, debug=args.debug)
     output_filename = args.output
-    write_connections(args.output, bitstream, debug=args.debug)
+    write_connections(args.output, connections, debug=args.debug)
     

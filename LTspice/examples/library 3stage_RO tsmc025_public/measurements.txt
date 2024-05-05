@@ -1,2 +1,0 @@
-.meas tran zc1 find when v(bus01) = 1.25 cross=10
-.meas tran zc2 find when v(bus01) = 1.25 cross=11

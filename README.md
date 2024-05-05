@@ -18,12 +18,12 @@ with the Mobius chip.
   `cir_to_connections.py` developed by PK to convert an LTSpice netlist
   into a `connections.json` file that the `connections_to_bitstream.py`
   script can convert into a bitstream file. It uses the `BitStream`
-  object programmed by Cade. `Bitstream` is located in [](generation_modules/src)
+  object programmed by Cade. `Bitstream` is located in [generation_modules/src](generation_modules/src)
 
-* run `./cir_to_connections.py -h` and you get a brief description of
+* Run `./cir_to_connections.py -h` and you get a brief description of
   script usage. 
   
-* There are some example `.cir` files provided and some
+* There are some example `.cir` files provided in
   [examples](./cir_to_connections/example_cir). You obtain a `.cir`
   netlist for your LTSpice circuit by right clicking on the schematic,
   then 'View SPICE Netlist', then 'Save As'. 

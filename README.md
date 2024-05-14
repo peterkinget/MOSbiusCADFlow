@@ -1,4 +1,4 @@
-* Contains python modules developed by Cade in order to interface
+* Contains python modules in order to interface
 with the Mobius chip. 
 
 ## connections_to_bitstream

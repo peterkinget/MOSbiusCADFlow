@@ -1,0 +1,65 @@
+* /Users/peterkinget/Library/Mobile Documents/com~apple~CloudDocs/Work/MOBIUS/GitHub/adding_connections_to_bitstream/MobiusCADFlow/LTspice/library clean tsmc025_public copy/MobiusChip_v4.asc
+XX1 N002 BUS02 nmos_currentmirror
+XX2 BUS02 BUS03 cs_nmos_4x_a
+XX6 BUS02 BUS03 BUS09 BUS09 dp_nmos_4x_a
+XX7 BUS02 BUS03 BUS09 BUS09 dp_nmos_4x_b
+V1 VDD 0 {VDD}
+XX12 N001 NC_01 BUS01 NC_02 NC_03 BUS03 pmos_currentmirror_array
+XX3 BUS02 BUS03 cs_nmos_4x_b
+XX13 N002 BUS03 BUS01 BUS01 dp_pmos_4x_a
+XX14 BUS02 vinp BUS01 BUS01 dp_pmos_4x_b
+XX22 BUS09 chip_vss
+I1 N001 0 {IBIAS}
+V2 vinp 0 {VDD/2}
+
+* block symbol definitions
+.subckt nmos_currentmirror in out
+XM1 in in 0 0 NMOS_mobius m=1
+XM2 out in 0 0 NMOS_mobius m=1
+.ends nmos_currentmirror
+
+.subckt cs_nmos_4x_a gate drain
+XM1 drain gate 0 0 NMOS_mobius m=4
+.ends cs_nmos_4x_a
+
+.subckt dp_nmos_4x_a gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_a
+
+.subckt dp_nmos_4x_b gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_b
+
+.subckt pmos_currentmirror_array in out1 out2 out4 out8 out16
+XM1 in in VDD VDD PMOS_mobius m=1
+XM2 out1 in VDD VDD PMOS_mobius m=1
+XM3 out2 in VDD VDD PMOS_mobius m=2
+XM4 out4 in VDD VDD PMOS_mobius m=4
+XM5 out8 in VDD VDD PMOS_mobius m=8
+XM6 out16 in VDD VDD PMOS_mobius m=16
+.ends pmos_currentmirror_array
+
+.subckt cs_nmos_4x_b gate drain
+XM1 drain gate 0 0 NMOS_mobius m=4
+.ends cs_nmos_4x_b
+
+.subckt dp_pmos_4x_a drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_a
+
+.subckt dp_pmos_4x_b drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_b
+
+.subckt chip_vss chip_vss
+R1 chip_vss 0 0.000001
+.ends chip_vss
+
+.global VDD
+.param VDD = 2.5
+.inc transistor_models_tsmc025_public.inc
+.op
+* Note: Do not connect a BUS directly to VDD or VSS even with a jumper. \nUse the Chip_VDD and Chip_VSS.
+.param IBIAS = 100u
+.backanno
+.end

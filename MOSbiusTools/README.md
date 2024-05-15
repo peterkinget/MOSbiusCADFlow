@@ -21,7 +21,7 @@
 
 ## cir_to_connections
 
-*  `cir_to_connections` converts an LTSpice netlist
+*  `cir_to_connections` converts an LTSpice netlist (`.cir`)
   into a `connections.json` file that the `connections_to_bitstream`
   script can convert into a bitstream file. 
 
@@ -29,6 +29,27 @@
   script usage. 
   
 * There are some example `.cir` files provided in
-  [examples](./MOSbiusTools/scripts/examples_cir). You obtain a `.cir`
+  [examples](./MOSbiusTools/scripts/examples_cir). 
+
+## Basic Steps to Create Bitstream Files
+
+### From LTspice Schematic
+* create a LTspice schematic using the [LTspice Library](../LTspice)
+* save your design as a `.cir` file, e.g. `my_circuit.cir`. You obtain a `.cir`
   netlist for your LTSpice circuit by right clicking on the schematic,
   then 'View SPICE Netlist', then 'Save As'. 
+* create a `connections.json` file:
+  - `cir_to_connections -i my_circuit.cir -o connections_my_circuit.json -d`
+  - the `-d` is not required but will provide some output to review the conversion process
+  - you can choose your own filename for the json file, but a .json is recommended
+* convert the `connections_my_circuit.json` to a bitstream file with `connections_to_bitstream` -- see next topic.
+
+### From Connections Json File
+* prepare connections file:
+  - You can create a connections file in your text editor by starting from [connections.json](./MOSbiusTools/scripts/examples_connections/connections.json); for each *BUS* list the pcb pin numbers that need to be connected to it; let's assume you save it as `connections_my_circuit.json`. 
+  - Or you can use the `cir_to_connections` script described above
+* convert connections file to bitstream files:
+  - `connections_to_bitstream -i connections_my_circuit.json -o my_circuit_bitstream.txt -d`
+  - `-d` is not required but will provide output so you can review the conversion
+  - you can choose your won filename for the output file, but a `.txt` extension is recommended; besides `my_circuit_bitstream.txt`, `my_circuit_bitstream_clk.txt` will also be generated
+  - the bitstream files can be used with the ADALM2000 to generate the digital programming waveforms (CLK and DATA)

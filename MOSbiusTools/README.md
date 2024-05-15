@@ -1,7 +1,6 @@
 # MOSBiusTools
 
-* Contains python modules in order to interface
-with the Mobius chip. 
+* Contains python modules to interface with the Mobius chip. 
 
 ## connections_to_bitstream
 

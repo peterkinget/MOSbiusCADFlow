@@ -51,5 +51,5 @@
 * convert connections file to bitstream files:
   - `connections_to_bitstream -i connections_my_circuit.json -o my_circuit_bitstream.txt -d`
   - `-d` is not required but will provide output so you can review the conversion.
-  - you can choose your won filename for the output file, but a `.txt` extension is recommended; besides `my_circuit_bitstream.txt`, `my_circuit_bitstream_clk.txt` will also be generated.
+  - you can choose your own filename for the output file, but a `.txt` extension is recommended; besides `my_circuit_bitstream.txt`, `my_circuit_bitstream_clk.txt` will also be generated.
   - the bitstream files can be used with the ADALM2000 to generate the digital programming waveforms (CLK and DATA).

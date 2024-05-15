@@ -1,11 +1,12 @@
 [project]
 name = "MOSbiusTools"
-version = "0.1"
+version = "0.1.1"
 authors = [
   { name="Peter Kinget", email="peter.kinget@columbia.edu" },
 ]
 description = "Tools for the MOSbius Chip"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -20,3 +21,7 @@ Issues = "https://github.com/peterkinget"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[project.scripts]
+cir_to_connections = "MOSbiusTools.scripts.cir_to_connections:main"
+connections_to_bitstream = "MOSbiusTools.scripts.connections_to_bitstream:main"

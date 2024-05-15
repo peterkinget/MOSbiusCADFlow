@@ -46,7 +46,7 @@
 
 ### From Connections Json File
 * prepare connections file:
-  - You can create a connections file in your text editor by starting from [connections.json](./MOSbiusTools/scripts/examples_connections/connections.json); for each *BUS* list the pcb pin numbers that need to be connected to it [example](./MOSbiusTools/scripts/examples_connections/connections_Miller_OTA_pin.json); let's assume you save it as `connections_my_circuit.json`. 
+  - You can create a connections file in your text editor by starting from [connections.json](./MOSbiusTools/scripts/examples_connections/connections.json); for each *BUS* list the pcb pin numbers that need to be connected to it [(OTA example)](./MOSbiusTools/scripts/examples_connections/connections_Miller_OTA_pin.json); let's assume you save it as `connections_my_circuit.json`. 
   - Or, you can use the `cir_to_connections` script described above.
 * convert connections file to bitstream files:
   - `connections_to_bitstream -i connections_my_circuit.json -o my_circuit_bitstream.txt -d`

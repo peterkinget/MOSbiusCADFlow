@@ -5,9 +5,10 @@ import argparse
 import json
 import os
 
-import sys
-sys.path.append("../generation_modules/src")
-from BitStream import BitStream
+# import sys
+# sys.path.append("../generation_modules/src")
+from MOSbiusTools.bitstream_utils.BitStream import BitStream
+
 
 def cir_to_connections(circ_filename, debug=False):
     example_bitstream = BitStream()

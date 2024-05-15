@@ -4,22 +4,22 @@
 
 ## connections_to_bitstream
 
-*  [connections_to_bitstream](./connections_to_bitstream) contains a
+*  [connections_to_bitstream](./src/MOSbiusTools/connections_to_bitstream) contains a
   python script `connections_to_bitstream.py` developed by PK to converted a connections.json file
   into a bitstream to program the Mobius chip.
 
 * run `./connections_to_bitstream.py -h` and you get a brief description of
   script usage. 
   
-* There is a blank `connections.json` file provided and some [examples](./connections_to_bitstream/examples). 
+* There is a blank `connections.json` file provided and some [examples](./src/MOSbiusTools/connections_to_bitstream/examples). 
 
 ## cir_to_connections
 
-*  [cir_to_connections](./cir_to_connections) contains a python script
+*  [cir_to_connections](./src/MOSbiusTools/cir_to_connections) contains a python script
   `cir_to_connections.py` developed by PK to convert an LTSpice netlist
   into a `connections.json` file that the `connections_to_bitstream.py`
   script can convert into a bitstream file. It uses the `BitStream`
-  object programmed by Cade. `Bitstream` is located in [generation_modules/src](generation_modules/src)
+  object programmed by Cade. `Bitstream` is located in [bitstream_utils](./src/MOSbiusTools/bitstream_utils)
 
 * Run `./cir_to_connections.py -h` and you get a brief description of
   script usage. 

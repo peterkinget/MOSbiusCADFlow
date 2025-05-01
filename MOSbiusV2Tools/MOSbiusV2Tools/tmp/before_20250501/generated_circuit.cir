@@ -1,0 +1,81 @@
+simulator lang=spice
+
+.SUBCKT PK_RBUS_external_connections RBUS<1> RBUS<2> RBUS<3> RBUS<4> RBUS<5>
++  RBUS<6> RBUS<7> RBUS<8> pin<1> pin<2> pin<3> pin<4> pin<5> pin<6> pin<7>
++  pin<8> pin<9> pin<10> pin<11> pin<12> pin<13> pin<14> pin<15> pin<16> pin<17>
++  pin<18> pin<19> pin<20> pin<21> pin<22> pin<23> pin<24> pin<25> pin<26>
++  pin<27> pin<28> pin<29> pin<30> pin<31> pin<32> pin<33> pin<34> pin<35>
++  pin<36> pin<37> pin<38> pin<39> pin<40> pin<41> pin<42> pin<43> pin<44>
++  pin<45> pin<46> pin<47> pin<48> pin<49> pin<50> pin<51> pin<52> pin<53>
++  pin<54> pin<55> pin<56> pin<57> pin<58> pin<59> pin<60> pin<61> pin<62>
++  pin<63> pin<64> pin<65> pin<66> pin<67> pin<68> pin<69> pin<70> pin<71>
++  pin<72> pin<73> pin<74> pin<75> pin<76> pin<77> pin<78> pin<79> pin<80>
++  pin<81> pin<82> pin<83> pin<84> pin<85> pin<86> pin<87> pin<88> pin<89>
++  pin<90> pin<91> pin<92> pin<93> pin<94> pin<95> pin<96> pin<97> pin<98>
++  pin<99> pin<100>
+
+* DINV2_INP_L pin<49> RBUS<1>
+Vshort_1_49 RBUS<1> pin<49> 0
+* DINV2_INN_L pin<50> RBUS<1>
+Vshort_1_50 RBUS<1> pin<50> 0
+* DINV2_OUT_L pin<51> RBUS<2>
+Vshort_2_51 RBUS<2> pin<51> 0
+* DINV2_INP_R pin<52> RBUS<2>
+Vshort_2_52 RBUS<2> pin<52> 0
+* DINV2_INN_R pin<53> RBUS<2>
+Vshort_2_53 RBUS<2> pin<53> 0
+* DINV2_OUT_R pin<54> RBUS<3>
+Vshort_3_54 RBUS<3> pin<54> 0
+* DINV1_INP_L pin<55> RBUS<3>
+Vshort_3_55 RBUS<3> pin<55> 0
+* DINV1_INN_L pin<56> RBUS<3>
+Vshort_3_56 RBUS<3> pin<56> 0
+* DINV1_OUT_L pin<57> RBUS<4>
+Vshort_4_57 RBUS<4> pin<57> 0
+* DINV1_INP_R pin<58> RBUS<4>
+Vshort_4_58 RBUS<4> pin<58> 0
+* DINV1_INN_R pin<59> RBUS<4>
+Vshort_4_59 RBUS<4> pin<59> 0
+* DINV1_OUT_R pin<60> RBUS<5>
+Vshort_5_60 RBUS<5> pin<60> 0
+* DCC4_N_G_L_CS pin<62> RBUS<5>
+Vshort_5_62 RBUS<5> pin<62> 0
+* DCC4_P_G_L_CS pin<94> RBUS<5>
+Vshort_5_94 RBUS<5> pin<94> 0
+* DCC4_N_D_L_CC pin<65> RBUS<6>
+Vshort_6_65 RBUS<6> pin<65> 0
+* DCC4_P_D_L_CC pin<97> RBUS<6>
+Vshort_6_97 RBUS<6> pin<97> 0
+* DCC4_N_G_R_CS pin<64> RBUS<6>
+Vshort_6_64 RBUS<6> pin<64> 0
+* DCC4_P_G_R_CS pin<96> RBUS<6>
+Vshort_6_96 RBUS<6> pin<96> 0
+* DCC4_N_D_R_CC pin<67> RBUS<7>
+Vshort_7_67 RBUS<7> pin<67> 0
+* DCC4_P_D_R_CC pin<99> RBUS<7>
+Vshort_7_99 RBUS<7> pin<99> 0
+* DCC3_N_G_L_CS pin<70> RBUS<7>
+Vshort_7_70 RBUS<7> pin<70> 0
+* DCC3_P_G_L_CS pin<27> RBUS<7>
+Vshort_7_27 RBUS<7> pin<27> 0
+* VSS pin<1> RBUS<19>
+Vshort_19_1 RBUS<19> pin<1> 0
+* DCC4_P_G_L_CC pin<93> RBUS<19>
+Vshort_19_93 RBUS<19> pin<93> 0
+* DCC4_P_G_R_CC pin<95> RBUS<19>
+Vshort_19_95 RBUS<19> pin<95> 0
+* DCC3_P_G_L_CC pin<28> RBUS<19>
+Vshort_19_28 RBUS<19> pin<28> 0
+* DCC3_P_G_R_CC pin<30> RBUS<19>
+Vshort_19_30 RBUS<19> pin<30> 0
+* VDD pin<13> RBUS<20>
+Vshort_20_13 RBUS<20> pin<13> 0
+* DCC4_N_G_L_CC pin<61> RBUS<20>
+Vshort_20_61 RBUS<20> pin<61> 0
+* DCC4_N_G_R_CC pin<63> RBUS<20>
+Vshort_20_63 RBUS<20> pin<63> 0
+* DCC3_N_G_L_CC pin<69> RBUS<20>
+Vshort_20_69 RBUS<20> pin<69> 0
+* DCC3_N_G_R_CC pin<71> RBUS<20>
+Vshort_20_71 RBUS<20> pin<71> 0
+.ENDS

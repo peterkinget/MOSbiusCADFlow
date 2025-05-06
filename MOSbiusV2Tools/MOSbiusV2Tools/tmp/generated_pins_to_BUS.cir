@@ -1,0 +1,29 @@
+* ../../examples/RO3_circuit.json
+* "spice" description for "MOSbius_v2_tb", "PK_pins_to_RBUS_SWBUS", "spice" 
+
+
+simulator lang=spice
+
+.SUBCKT PK_pins_to_RBUS_SWBUS RBUS<1> RBUS<2> RBUS<3> RBUS<4> RBUS<5> RBUS<6>
++  RBUS<7> RBUS<8> SWBUS<1> SWBUS<2> SWBUS<3> SWBUS<4> SWBUS<5> SWBUS<6> pin<1>
++  pin<2> pin<3> pin<4> pin<5> pin<6> pin<7> pin<8> pin<9> pin<10> pin<11>
++  pin<12> pin<13> pin<14> pin<15> pin<16> pin<17> pin<18> pin<19> pin<20>
++  pin<21> pin<22> pin<23> pin<24> pin<25> pin<26> pin<27> pin<28> pin<29>
++  pin<30> pin<31> pin<32> pin<33> pin<34> pin<35> pin<36> pin<37> pin<38>
++  pin<39> pin<40> pin<41> pin<42> pin<43> pin<44> pin<45> pin<46> pin<47>
++  pin<48> pin<49> pin<50> pin<51> pin<52> pin<53> pin<54> pin<55> pin<56>
++  pin<57> pin<58> pin<59> pin<60> pin<61> pin<62> pin<63> pin<64> pin<65>
++  pin<66> pin<67> pin<68> pin<69> pin<70> pin<71> pin<72> pin<73> pin<74>
++  pin<75> pin<76> pin<77> pin<78> pin<79> pin<80> pin<81> pin<82> pin<83>
++  pin<84> pin<85> pin<86> pin<87> pin<88> pin<89> pin<90> pin<91> pin<92>
++  pin<93> pin<94> pin<95> pin<96> pin<97> pin<98> pin<99> pin<100>
+
+VRBUS1_to_pin20 RBUS<1> pin<20> 0
+* RBUS1 connected to DINV2_INP_L (pin<20>)
+VRBUS2_to_pin22 RBUS<2> pin<22> 0
+* RBUS2 connected to DINV2_OUT_L (pin<22>)
+VRBUS3_to_pin25 RBUS<3> pin<25> 0
+* RBUS3 connected to DINV2_OUT_R (pin<25>)
+VRBUS4_to_pin16 RBUS<4> pin<16> 0
+* RBUS4 connected to DINV1_OUT_L (pin<16>)
+.ENDS 

@@ -1,0 +1,143 @@
+simulator lang=spice
+
+* ../../examples/INV_string_12_CS_ON.json
+
+.SUBCKT PK_NODE_external_connections 
++ NODE<1> NODE<2> NODE<3> NODE<4> NODE<5> 
++ NODE<6> NODE<7> NODE<8> NODE<9> NODE<10> 
++ NODE<11> NODE<12> NODE<13> NODE<14> NODE<15> 
++ NODE<16> NODE<17> NODE<18> NODE<19> NODE<20>        
++  pin<1> pin<2> pin<3> pin<4> pin<5> pin<6> pin<7>
++  pin<8> pin<9> pin<10> pin<11> pin<12> pin<13> pin<14> pin<15> pin<16> pin<17>
++  pin<18> pin<19> pin<20> pin<21> pin<22> pin<23> pin<24> pin<25> pin<26>
++  pin<27> pin<28> pin<29> pin<30> pin<31> pin<32> pin<33> pin<34> pin<35>
++  pin<36> pin<37> pin<38> pin<39> pin<40> pin<41> pin<42> pin<43> pin<44>
++  pin<45> pin<46> pin<47> pin<48> pin<49> pin<50> pin<51> pin<52> pin<53>
++  pin<54> pin<55> pin<56> pin<57> pin<58> pin<59> pin<60> pin<61> pin<62>
++  pin<63> pin<64> pin<65> pin<66> pin<67> pin<68> pin<69> pin<70> pin<71>
++  pin<72> pin<73> pin<74> pin<75> pin<76> pin<77> pin<78> pin<79> pin<80>
++  pin<81> pin<82> pin<83> pin<84> pin<85> pin<86> pin<87> pin<88> pin<89>
++  pin<90> pin<91> pin<92> pin<93> pin<94> pin<95> pin<96> pin<97> pin<98>
++  pin<99> pin<100>
+
+* DCC1_N_G_L_CS connected to VDD
+Vshort_VDD_DCC1_N_G_L_CS pin<66> pin<13> 0
+* DCC1_N_G_R_CS connected to VDD
+Vshort_VDD_DCC1_N_G_R_CS pin<68> pin<13> 0
+* DCC2_N_G_L_CS connected to VDD
+Vshort_VDD_DCC2_N_G_L_CS pin<42> pin<13> 0
+* DCC2_N_G_R_CS connected to VDD
+Vshort_VDD_DCC2_N_G_R_CS pin<44> pin<13> 0
+* DCC3_N_G_L_CS connected to VDD
+Vshort_VDD_DCC3_N_G_L_CS pin<50> pin<13> 0
+* DCC3_N_G_R_CS connected to VDD
+Vshort_VDD_DCC3_N_G_R_CS pin<52> pin<13> 0
+* DCC4_N_G_L_CS connected to VDD
+Vshort_VDD_DCC4_N_G_L_CS pin<89> pin<13> 0
+* DCC4_N_G_R_CS connected to VDD
+Vshort_VDD_DCC4_N_G_R_CS pin<91> pin<13> 0
+* DCC1_P_G_L_CS connected to VSS
+Vshort_VSS_DCC1_P_G_L_CS pin<96> pin<1> 0
+* DCC1_P_G_R_CS connected to VSS
+Vshort_VSS_DCC1_P_G_R_CS pin<98> pin<1> 0
+* DCC2_P_G_L_CS connected to VSS
+Vshort_VSS_DCC2_P_G_L_CS pin<73> pin<1> 0
+* DCC2_P_G_R_CS connected to VSS
+Vshort_VSS_DCC2_P_G_R_CS pin<75> pin<1> 0
+* DCC3_P_G_L_CS connected to VSS
+Vshort_VSS_DCC3_P_G_L_CS pin<57> pin<1> 0
+* DCC3_P_G_R_CS connected to VSS
+Vshort_VSS_DCC3_P_G_R_CS pin<59> pin<1> 0
+* DCC4_P_G_L_CS connected to VSS
+Vshort_VSS_DCC4_P_G_L_CS pin<27> pin<1> 0
+* DCC4_P_G_R_CS connected to VSS
+Vshort_VSS_DCC4_P_G_R_CS pin<29> pin<1> 0
+* DCC1_N_G_L_CC connected to NODE<1>
+Vshort_NODE_1_DCC1_N_G_L_CC NODE<1> pin<65> 0
+* DCC1_P_G_L_CC connected to NODE<1>
+Vshort_NODE_1_DCC1_P_G_L_CC NODE<1> pin<97> 0
+* DCC1_N_D_L_CC connected to NODE<2>
+Vshort_NODE_2_DCC1_N_D_L_CC NODE<2> pin<69> 0
+* DCC1_P_D_L_CC connected to NODE<2>
+Vshort_NODE_2_DCC1_P_D_L_CC NODE<2> pin<10> 0
+* DCC1_N_G_R_CC connected to NODE<2>
+Vshort_NODE_2_DCC1_N_G_R_CC NODE<2> pin<67> 0
+* DCC1_P_G_R_CC connected to NODE<2>
+Vshort_NODE_2_DCC1_P_G_R_CC NODE<2> pin<99> 0
+* DCC1_N_D_R_CC connected to NODE<3>
+Vshort_NODE_3_DCC1_N_D_R_CC NODE<3> pin<71> 0
+* DCC1_P_D_R_CC connected to NODE<3>
+Vshort_NODE_3_DCC1_P_D_R_CC NODE<3> pin<12> 0
+* DCC2_N_G_L_CC connected to NODE<3>
+Vshort_NODE_3_DCC2_N_G_L_CC NODE<3> pin<41> 0
+* DCC2_P_G_L_CC connected to NODE<3>
+Vshort_NODE_3_DCC2_P_G_L_CC NODE<3> pin<74> 0
+* DCC2_N_D_L_CC connected to NODE<4>
+Vshort_NODE_4_DCC2_N_D_L_CC NODE<4> pin<45> 0
+* DCC2_P_D_L_CC connected to NODE<4>
+Vshort_NODE_4_DCC2_P_D_L_CC NODE<4> pin<78> 0
+* DCC2_N_G_R_CC connected to NODE<4>
+Vshort_NODE_4_DCC2_N_G_R_CC NODE<4> pin<43> 0
+* DCC2_P_G_R_CC connected to NODE<4>
+Vshort_NODE_4_DCC2_P_G_R_CC NODE<4> pin<76> 0
+* DCC2_N_D_R_CC connected to NODE<5>
+Vshort_NODE_5_DCC2_N_D_R_CC NODE<5> pin<47> 0
+* DCC2_P_D_R_CC connected to NODE<5>
+Vshort_NODE_5_DCC2_P_D_R_CC NODE<5> pin<80> 0
+* DCC3_N_G_L_CC connected to NODE<5>
+Vshort_NODE_5_DCC3_N_G_L_CC NODE<5> pin<49> 0
+* DCC3_P_G_L_CC connected to NODE<5>
+Vshort_NODE_5_DCC3_P_G_L_CC NODE<5> pin<58> 0
+* DCC3_N_D_L_CC connected to NODE<6>
+Vshort_NODE_6_DCC3_N_D_L_CC NODE<6> pin<53> 0
+* DCC3_P_D_L_CC connected to NODE<6>
+Vshort_NODE_6_DCC3_P_D_L_CC NODE<6> pin<62> 0
+* DCC3_N_G_R_CC connected to NODE<6>
+Vshort_NODE_6_DCC3_N_G_R_CC NODE<6> pin<51> 0
+* DCC3_P_G_R_CC connected to NODE<6>
+Vshort_NODE_6_DCC3_P_G_R_CC NODE<6> pin<60> 0
+* DCC3_N_D_R_CC connected to NODE<7>
+Vshort_NODE_7_DCC3_N_D_R_CC NODE<7> pin<55> 0
+* DCC3_P_D_R_CC connected to NODE<7>
+Vshort_NODE_7_DCC3_P_D_R_CC NODE<7> pin<64> 0
+* DCC4_N_G_L_CC connected to NODE<7>
+Vshort_NODE_7_DCC4_N_G_L_CC NODE<7> pin<88> 0
+* DCC4_P_G_L_CC connected to NODE<7>
+Vshort_NODE_7_DCC4_P_G_L_CC NODE<7> pin<26> 0
+* DCC4_N_D_L_CC connected to NODE<8>
+Vshort_NODE_8_DCC4_N_D_L_CC NODE<8> pin<92> 0
+* DCC4_P_D_L_CC connected to NODE<8>
+Vshort_NODE_8_DCC4_P_D_L_CC NODE<8> pin<30> 0
+* DCC4_N_G_R_CC connected to NODE<8>
+Vshort_NODE_8_DCC4_N_G_R_CC NODE<8> pin<90> 0
+* DCC4_P_G_R_CC connected to NODE<8>
+Vshort_NODE_8_DCC4_P_G_R_CC NODE<8> pin<28> 0
+* DCC4_N_D_R_CC connected to NODE<9>
+Vshort_NODE_9_DCC4_N_D_R_CC NODE<9> pin<94> 0
+* DCC4_P_D_R_CC connected to NODE<9>
+Vshort_NODE_9_DCC4_P_D_R_CC NODE<9> pin<32> 0
+* DINV1_INP_L connected to NODE<9>
+Vshort_NODE_9_DINV1_INP_L NODE<9> pin<14> 0
+* DINV1_INN_L connected to NODE<9>
+Vshort_NODE_9_DINV1_INN_L NODE<9> pin<15> 0
+* DINV1_OUT_L connected to NODE<10>
+Vshort_NODE_10_DINV1_OUT_L NODE<10> pin<16> 0
+* DINV1_INP_R connected to NODE<10>
+Vshort_NODE_10_DINV1_INP_R NODE<10> pin<17> 0
+* DINV1_INN_R connected to NODE<10>
+Vshort_NODE_10_DINV1_INN_R NODE<10> pin<18> 0
+* DINV1_OUT_R connected to NODE<11>
+Vshort_NODE_11_DINV1_OUT_R NODE<11> pin<19> 0
+* DINV2_INP_L connected to NODE<11>
+Vshort_NODE_11_DINV2_INP_L NODE<11> pin<20> 0
+* DINV2_INN_L connected to NODE<11>
+Vshort_NODE_11_DINV2_INN_L NODE<11> pin<21> 0
+* DINV2_OUT_L connected to NODE<12>
+Vshort_NODE_12_DINV2_OUT_L NODE<12> pin<22> 0
+* DINV2_INP_R connected to NODE<12>
+Vshort_NODE_12_DINV2_INP_R NODE<12> pin<23> 0
+* DINV2_INN_R connected to NODE<12>
+Vshort_NODE_12_DINV2_INN_R NODE<12> pin<24> 0
+* DINV2_OUT_R connected to NODE<13>
+Vshort_NODE_13_DINV2_OUT_R NODE<13> pin<25> 0
+.ENDS

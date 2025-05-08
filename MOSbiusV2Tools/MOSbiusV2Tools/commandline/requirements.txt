@@ -1,0 +1,96 @@
+import json
+from datetime import datetime
+
+def generate_probe_subckt(circuit_json_path, pin_map_path, register_map_path, template_path, output_path):
+    # Load the circuit JSON
+    with open(circuit_json_path, 'r') as circuit_file:
+        circuit_data = json.load(circuit_file)
+
+    # Load the pin-to-sw_matrix mapping
+    with open(pin_map_path, 'r') as pin_map_file:
+        pin_to_sw_matrix = json.load(pin_map_file)
+
+    # Load the sw_matrix-to-register mapping
+    with open(register_map_path, 'r') as register_map_file:
+        sw_matrix_to_register = json.load(register_map_file)
+
+    # Load the SPICE template
+    with open(template_path, 'r') as template_file:
+        spice_header = template_file.readlines()
+
+    # Open the output file for writing
+    with open(output_path, 'w') as output_file:
+        # Write the SPICE template header
+        creation_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        output_file.writelines(f"* File created on: {creation_time}\n")
+        output_file.writelines(f"* From this circuit description: {circuit_json_path}\n")
+        output_file.writelines(spice_header)
+
+        # Track connected probes
+        connected_probes = set()
+
+        # Iterate through each connection in the circuit JSON
+        for bus, entries in circuit_data.items():
+            if bus.startswith("RBUS"):
+                for pin in entries:
+                    sw_matrix_pin = pin_to_sw_matrix.get(pin, None)
+                    if sw_matrix_pin is None:
+                        print(f"Warning: Pin '{pin}' not found in pin_name_to_sw_matrix_pin_number.json")
+                        continue
+
+                    register = sw_matrix_to_register.get(str(int(sw_matrix_pin)), {}).get(bus, None)
+                    if register is None:
+                        print(f"Warning: Register not found for sw_matrix_pin '{sw_matrix_pin}' and bus '{bus}'")
+                        continue
+
+                    output_file.write(f"* Connection: {bus}, Pin: {pin}, sw_matrix_pin: {sw_matrix_pin}, Register: {register}\n")
+                    output_file.write(f"V{pin}_to_{bus} PROBE<{int(register)}> VDD 0\n")
+                    connected_probes.add(int(register))
+
+            elif bus.startswith("SBUS"):
+                for entry in entries:
+                    terminal = entry["terminal"]
+                    connection = entry["connection"]
+
+                    sbus_a = f"{bus}a"
+                    sbus_b = f"{bus}b"
+                    sw_matrix_pin = pin_to_sw_matrix.get(terminal, None)
+                    if sw_matrix_pin is None:
+                        print(f"Warning: Pin '{terminal}' not found in pin_name_to_sw_matrix_pin_number.json")
+                        continue
+
+                    register_a = sw_matrix_to_register.get(str(int(sw_matrix_pin)), {}).get(sbus_a, None)
+                    register_b = sw_matrix_to_register.get(str(int(sw_matrix_pin)), {}).get(sbus_b, None)
+                    if (register_a is None) or (register_b is None):
+                        print(f"Warning: Register not found for sw_matrix_pin '{sw_matrix_pin}' and buses '{sbus_a} and {sbus_b}'")
+                        continue
+
+                    if connection == "ON":
+                        sbus_a_connection = "VDD"
+                        sbus_b_connection = "VDD"
+                    elif connection == "PHI1":
+                        sbus_a_connection = "VDD"
+                        sbus_b_connection = "VSS"
+                    elif connection == "PHI2":
+                        sbus_a_connection = "VSS"
+                        sbus_b_connection = "VDD"
+                    else:
+                        sbus_a_connection = "VSS"
+                        sbus_b_connection = "VSS"
+
+                    output_file.write(f"* Connection: {bus}, Terminal: {terminal}, Connection Key: {connection}\n")
+                    output_file.write(f"V{register_a}_to_{terminal} PROBE<{register_a}> {sbus_a_connection} 0\n")
+                    output_file.write(f"V{register_b}_to_{terminal} PROBE<{register_b}> {sbus_b_connection} 0\n")
+
+                    connected_probes.add(int(register_a))
+                    connected_probes.add(int(register_b))
+
+        # By default, connect all unused probes to VSS
+        for probe in range(1, 1889):  # Assuming 1888 probes
+            if probe not in connected_probes:
+                output_file.write(f"Vprobe_{probe}_to_VSS PROBE<{probe}> VSS 0\n")
+
+        # Write the SPICE footer
+        output_file.write(".ENDS\n")
+
+        return connected_probes

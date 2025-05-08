@@ -1,0 +1,17 @@
+Write a new generate_circuit_file function that reads in the circuit json file (example RO3_circuit.json), finds all the connections, finds the corresponding sw_matrix pin numbers in pin_name_to_sw_matrix_pin_number.json, finds the corresponding register in sw_matrix_register_map.json, and generates a spice subcircuit using the template in template_circuit.cir. 
+
+By default all probe<> should be connected to VSS with a zero-volt voltage source. If a connection is present, the corresponding probe pin needs to be connected to VDD with a zero-volt voltage source. Also add a comment line, starting with *, to indicate which connection it is.
+
+
+
+-----
+
+Write a new generate_circuit_file function that reads in the circuit json file (example RO3_circuit.json), and for each RBUS or SWBUS makes a connection to a single pin among its connected pins; use pin_name_to_number.json to find the associated pin.  Generate a spice subcircuit using the template in template_circuit.cir. For each BUS there should be a single zero-volt voltage source that connects it to a corresponding pin. Also add a comment line, starting with *, to indicate which connection it is. The RBUS1 needs to be replaced with RBUS<1> and similarly for all other BUSes. 
+
+
+
+---
+
+Update the generate_circuit_file function for the new file format of the circuit_json_path; it can have two types of bus entries, an RBUS as before, but now also an SBUS; do not make any changes for the RBUS; an SBUS entry requires two probes to be set; e.g. SBUS1 needs to get a PROBE set for SBUS1a and for SBUS1b, depending on the connection key in the json. By default, SBUS1a and SBUS1b should be connected to VSS with the corresponding PROBE. If connection key is "ON", then SBUS1a and SBUS1b needs to be connected to VDD. If the connection key is "PHI1", then SBUS1a = VDD and SBUS1b = VSS, if it is "PHI2", then SBUS1a = VSS and SBUS1b = VDD, if it is "OFF", then SBUS1a and SBUS1b both are VSS. 
+
+I have these three jupyter notebooks that process json files and produces spice subckt files. I would like to convert them into a python library that has three functions/commands to do each of the tasks. 

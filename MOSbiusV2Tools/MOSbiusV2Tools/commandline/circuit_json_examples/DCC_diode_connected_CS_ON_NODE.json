@@ -1,0 +1,90 @@
+{
+    "VDD": [
+        "DCC1_N_G_L_CS",
+        "DCC1_N_G_R_CS",
+        "DCC2_N_G_L_CS",
+        "DCC2_N_G_R_CS",
+        "DCC3_N_G_L_CS",
+        "DCC3_N_G_R_CS",
+        "DCC4_N_G_L_CS",
+        "DCC4_N_G_R_CS"
+    ],
+    "VSS": [
+        "DCC1_P_G_L_CS",
+        "DCC1_P_G_R_CS",
+        "DCC2_P_G_L_CS",
+        "DCC2_P_G_R_CS",
+        "DCC3_P_G_L_CS",
+        "DCC3_P_G_R_CS",
+        "DCC4_P_G_L_CS",
+        "DCC4_P_G_R_CS"
+    ],
+    "NODE<1>": [
+        "DCC1_N_G_L_CC",
+        "DCC1_P_G_L_CC",
+        "DCC1_N_D_L_CC",
+        "DCC1_P_D_L_CC"
+    ],
+    "NODE<2>": [
+        "DCC1_N_G_R_CC",
+        "DCC1_P_G_R_CC",
+        "DCC1_N_D_R_CC",
+        "DCC1_P_D_R_CC"
+    ],
+    "NODE<3>": [
+        "DCC2_N_G_L_CC",
+        "DCC2_P_G_L_CC",
+        "DCC2_N_D_L_CC",
+        "DCC2_P_D_L_CC"
+    ],
+    "NODE<4>": [
+        "DCC2_N_G_R_CC",
+        "DCC2_P_G_R_CC",
+        "DCC2_N_D_R_CC",
+        "DCC2_P_D_R_CC"
+    ],
+    "NODE<5>": [
+        "DCC3_N_G_L_CC",
+        "DCC3_P_G_L_CC",
+        "DCC3_N_D_L_CC",
+        "DCC3_P_D_L_CC"
+    ],
+    "NODE<6>": [
+        "DCC3_N_G_R_CC",
+        "DCC3_P_G_R_CC",
+        "DCC3_N_D_R_CC",
+        "DCC3_P_D_R_CC"
+    ],
+    "NODE<7>": [
+        "DCC4_N_G_L_CC",
+        "DCC4_P_G_L_CC",
+        "DCC4_N_D_L_CC",
+        "DCC4_P_D_L_CC"
+    ],
+    "NODE<8>": [
+        "DCC4_N_G_R_CC",
+        "DCC4_P_G_R_CC",
+        "DCC4_N_D_R_CC",
+        "DCC4_P_D_R_CC"
+    ],
+    "NODE<9>": [
+        "DINV1_INP_L",
+        "DINV1_INN_L",
+        "DINV1_OUT_L"
+    ],
+    "NODE<10>": [
+        "DINV1_INP_R",
+        "DINV1_INN_R",
+        "DINV1_OUT_R"
+    ],
+    "NODE<11>": [
+        "DINV2_INP_L",
+        "DINV2_INN_L",
+        "DINV2_OUT_L"
+    ],
+    "NODE<12>": [
+        "DINV2_INP_R",
+        "DINV2_INN_R",
+        "DINV2_OUT_R"
+    ]
+}

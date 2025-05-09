@@ -1,0 +1,3 @@
+Write a new generate_circuit_file function that reads in the circuit json file (example RO3_circuit.json), finds all the connections, finds the corresponding sw_matrix pin numbers in pin_name_to_sw_matrix_pin_number.json, finds the corresponding register in sw_matrix_registers.json, and generates a spice subcircuit using the template in template_circuit.cir. 
+
+By default all probe<> should be connected to VSS with a zero-volt voltage source. If a connection is present, the corresponding probe pin needs to be connected to VDD with a zero-volt voltage source. Also add a comment line, starting with *, to indicate which connection it is 

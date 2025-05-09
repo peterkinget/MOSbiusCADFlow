@@ -1,0 +1,16 @@
+{
+    "RBUS1": [],
+    "RBUS2": [],
+    "RBUS3": [],
+    "RBUS4": [],
+    "RBUS5": [],
+    "RBUS6": [],
+    "RBUS7": [],
+    "RBUS8": [],
+    "SBUS1": [{"terminal": "", "connection": ""}],
+    "SBUS2": [{"terminal": "", "connection": ""}],
+    "SBUS3": [{"terminal": "", "connection": ""}],
+    "SBUS4": [{"terminal": "", "connection": ""}],
+    "SBUS5": [{"terminal": "", "connection": ""}],
+    "SBUS6": [{"terminal": "", "connection": ""}]
+}

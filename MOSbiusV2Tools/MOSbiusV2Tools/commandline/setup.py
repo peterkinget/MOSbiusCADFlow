@@ -10,15 +10,15 @@ setup(
     author_email='peter@kinget.net',
     url='https://github.com/peterkinget/MOSbiusCADFlow',
     license='MIT',
-    packages=find_packages(include=["commandline", "commandline.*"]),  # Include the commandline package and submodules
-    package_dir={"commandline": "."},  # Map the commandline directory to the package namespace
+    packages=find_packages(where="src"),  # Look for packages in the "src" directory
+    package_dir={"": "src"},  # Map the "src" directory to the root namespace
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'generate_sizes_probe_subckt=commandline.src.generate_sizes_probe_subckt:main',
-            'generate_switch_matrix_probe_subckt=commandline.src.generate_switch_matrix_probe_subckt:main',
-            'generate_pin_to_RBUS_SBUS_subckt=commandline.src.generate_pin_to_RBUS_SBUS_subckt:main',
-            'generate_nodes_to_subckt=commandline.src.generate_nodes_to_subckt:main',
+            'generate_sizes_probe_subckt=commandline.generate_sizes_probe_subckt:main',
+            'generate_switch_matrix_probe_subckt=commandline.generate_switch_matrix_probe_subckt:main',
+            'generate_pin_to_RBUS_SBUS_subckt=commandline.generate_pin_to_RBUS_SBUS_subckt:main',
+            'generate_nodes_to_subckt=commandline.generate_nodes_to_subckt:main',
         ],
     },
     classifiers=[

@@ -16,14 +16,17 @@ readme = "README.md"
 # ]
 requires-python = ">=3.6"
 
+[project.urls]
+"Homepage" = "https://github.com/peterkinget/MOSbiusCADFlow"
+
 [project.scripts]
-generate_sizes_probe_subckt = "commandline.src.generate_sizes_probe_subckt:main"
-generate_switch_matrix_probe_subckt = "commandline.src.generate_switch_matrix_probe_subckt:main"
-generate_pin_to_RBUS_SBUS_subckt = "commandline.src.generate_pin_to_RBUS_SBUS_subckt:main"
-generate_nodes_to_subckt = "commandline.src.generate_nodes_to_subckt:main"
+generate_sizes_probe_subckt = "commandline.generate_sizes_probe_subckt:main"
+generate_switch_matrix_probe_subckt = "commandline.generate_switch_matrix_probe_subckt:main"
+generate_pin_to_RBUS_SBUS_subckt = "commandline.generate_pin_to_RBUS_SBUS_subckt:main"
+generate_nodes_to_subckt = "commandline.generate_nodes_to_subckt:main"
 
 [tool.setuptools]
-package-dir = {"" = "commandline"}
+package-dir = {"" = "commandline/src"}
 
 [tool.setuptools.packages.find]
 where = ["commandline/src"]

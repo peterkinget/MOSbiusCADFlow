@@ -10,7 +10,7 @@ setup(
     author_email='peter@kinget.net',
     url='https://github.com/peterkinget/MOSbiusCADFlow',
     license='MIT',
-    packages=find_packages(where="."),  # Adjusted to find all packages in the current directory
+    packages=find_packages(include=["commandline", "commandline.*"]),  # Explicitly include the commandline package
     install_requires=[],
     entry_points={
         'console_scripts': [

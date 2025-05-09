@@ -7,17 +7,13 @@ name = "mosbiusv2tools"
 version = "1.0.0"
 description = "Tools for generating SPICE subcircuits from JSON circuit descriptions and sizing files."
 readme = "README.md"
-readme-content-type = "text/markdown"
-license = { text = "MIT" }
-authors = [
-    { name = "Peter Kinget", email = "peter@kinget.net" }
-]
-homepage = "https://github.com/peterkinget/MOSbiusCADFlow"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent"
-]
+# readme-content-type = "text/markdown"
+# license = { text = "MIT" }
+# authors = [
+#     { name = "Peter Kinget", email = "peter@kinget.net" }
+# ]
+# # homepage = "https://github.com/peterkinget/MOSbiusCADFlow"
+# ]
 requires-python = ">=3.6"
 
 [project.scripts]

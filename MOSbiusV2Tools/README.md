@@ -2,6 +2,68 @@
 
 Tools for the MOSbiusV2. 
 
+## Overview
+MOSbiusV2Tools is a Python package that provides command-line tools for generating SPICE subcircuits from JSON circuit descriptions and sizing files. It facilitates the mapping of circuit components to switch matrix pins and registers, enabling efficient simulation of electronic circuits.
+
+## Installation
+
+### Installing from GitHub
+
+You can install the package directly from GitHub using pip:
+
+```bash
+pip install git+https://github.com/peterkinget/MOSbiusCADFlow.git#subdirectory=MOSbiusV2Tools
+```
+
+### Installing from Source
+
+Alternatively, you can clone the repository and install the package from source:
+
+```bash
+git clone https://github.com/peterkinget/MOSbiusCADFlow.git
+cd MOSbiusCADFlow/MOSbiusV2Tools
+pip install .
+```
+
+### Building the Package
+
+If you want to build the package yourself:
+
+```bash
+cd MOSbiusV2Tools
+python -m build
+```
+
+This will create wheel and source distributions in the `dist` directory.
+
+## Command-line Tools
+
+The package provides three main command-line tools:
+
+1. **`generate_sizes_probe_subckt`** - Generates a SPICE subcircuit file based on device sizes.
+2. **`generate_pins_to_RBUS_SBUS_subckt`** - Generates a SPICE subcircuit file connecting chip pins to RBUS and SBUS nodes.
+3. **`generate_switch_matrix_probe_subckt`** - Generates a SPICE subcircuit file for PROBE connections.
+
+## Usage
+
+### Device Sizing
+
+```bash
+generate_sizes_probe_subckt sizes.json output_spice_file.cir
+```
+
+### Connecting Pins to RBUS and SBUS
+
+```bash
+generate_pins_to_RBUS_SBUS_subckt circuit.json output_spice_file.cir
+```
+
+### Switch Matrix Configuration
+
+```bash
+generate_switch_matrix_probe_subckt circuit.json output_spice_file.cir
+```
+
 ## Circuit Description
 
 Create a `.json` file to describe the circuit connectivity that the on-chip switch matrix needs to implement. 
@@ -122,7 +184,6 @@ There are 8 regular buses, "RBUS1" thru "RBUS8"; the `.json` circuit file descri
     "RBUS2": ["DINV2_OUT_L", "DINV2_INP_R", "DINV2_INN_R"],
     "RBUS3": ["DINV2_OUT_R", "DINV1_INP_L", "DINV1_INN_L"],
     "RBUS4": ["DINV1_OUT_L", "DINV1_INP_R", "DINV1_INN_R"], 
-
 }
 ```
 ### Switched-Bus Connections
@@ -220,20 +281,14 @@ Fill in the sizes `0, 1, 2, ... 31` for the respective devices in the file. If y
 }
 ```
 
-## Circuit Description to Simulation Subckt Scripts
+## Examples
 
-There are a couple of scripts to take in the circuit description `.json` and the sizing `.json` and create spice subckts that can be used in top-level simulations of the chip. 
+Example JSON files are provided in the `examples` directory:
 
-### Setting the `PROBE<>` Nodes
+- `INV_string_5_RBUS.json` - Example circuit description using RBUS connections
+- `INV_string_clocked_RBUS_SBUS.json` - Example with both RBUS and SBUS connections
+- `all_transistors_4x_sizes.json` - Example device sizing file
 
-- `generate_sizes_probe_subckt.py` 
+## License
 
-- `generate_switch_matrix_probe_subckt.py`
-
-### Connecting the Chip Pins to the Corresponding `PCB` Nodes
-
-- `generate_pin_to_RBUS_SBUS_subckt.py`
-
-### Creating External Circuit Connections
-
-- `generate_nodes_to_subckt.py`
+This project is licensed under the MIT License.

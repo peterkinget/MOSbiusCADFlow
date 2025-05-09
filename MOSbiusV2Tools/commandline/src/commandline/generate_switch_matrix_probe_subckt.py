@@ -4,20 +4,23 @@ from datetime import datetime
 
 def generate_switch_matrix_probe_subckt(circuit_json_path, output_path):
     # Define the path to the chip_config_data directory
-    chip_config_dir = os.path.join(os.path.dirname(__file__), "../chip_config_data")
+    chip_config_dir = os.path.join(os.path.dirname(__file__), "chip_config_data")
 
     # Load the pin-to-switch matrix mapping JSON
     pin_map_path = os.path.join(chip_config_dir, "pin_name_to_sw_matrix_pin_number.json")
+    print(f"Looking for pin map file at: {pin_map_path}")
     with open(pin_map_path, 'r') as pin_map_file:
         pin_to_sw_matrix = json.load(pin_map_file)
 
     # Load the switch matrix-to-register mapping JSON
     register_map_path = os.path.join(chip_config_dir, "switch_matrix_register_map.json")
+    print(f"Looking for register map file at: {register_map_path}")
     with open(register_map_path, 'r') as register_map_file:
         sw_matrix_to_register = json.load(register_map_file)
 
     # Load the SPICE template
-    template_path = os.path.join(chip_config_dir, "../subckt_templates/PK_set_SWMATRIX_template.cir")
+    template_path = os.path.join(os.path.dirname(__file__), "subckt_templates/PK_set_SWMATRIX_template.cir")
+    print(f"Looking for template file at: {template_path}")
     with open(template_path, 'r') as template_file:
         spice_header = template_file.readlines()
 
@@ -108,7 +111,7 @@ def generate_switch_matrix_probe_subckt(circuit_json_path, output_path):
 
         print(f"SPICE netlist saved to {output_path}")
 
-if __name__ == "__main__":
+def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Generate a SPICE subcircuit for PROBE connections.")
@@ -121,3 +124,6 @@ if __name__ == "__main__":
         circuit_json_path=args.circuit_json_path,
         output_path=args.output_path
     )
+
+if __name__ == "__main__":
+    main()

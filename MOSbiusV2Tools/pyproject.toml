@@ -22,11 +22,18 @@ requires-python = ">=3.6"
 [project.scripts]
 generate_sizes_probe_subckt = "commandline.generate_sizes_probe_subckt:main"
 generate_switch_matrix_probe_subckt = "commandline.generate_switch_matrix_probe_subckt:main"
-generate_pin_to_RBUS_SBUS_subckt = "commandline.generate_pin_to_RBUS_SBUS_subckt:main"
-generate_nodes_to_subckt = "commandline.generate_nodes_to_subckt:main"
+generate_pins_to_RBUS_SBUS_subckt = "commandline.generate_pins_to_RBUS_SBUS_subckt:main"
 
 [tool.setuptools]
 package-dir = {"" = "commandline/src"}
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["commandline/src"]
+include = ["commandline", "commandline.*"]
+
+[tool.setuptools.package-data]
+"commandline" = [
+    "chip_config_data/*.json",
+    "subckt_templates/*.cir",
+]

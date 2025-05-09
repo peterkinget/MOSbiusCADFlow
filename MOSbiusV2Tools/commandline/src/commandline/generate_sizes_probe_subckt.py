@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import importlib.resources
 
 def generate_sizes_probe_subckt(sizes_file, output_spice_file):
     """
@@ -11,11 +12,15 @@ def generate_sizes_probe_subckt(sizes_file, output_spice_file):
         output_spice_file (str): Path to the output SPICE netlist file.
     """
     # Define the path to the chip_config_data directory
-    chip_config_dir = os.path.join(os.path.dirname(__file__), "../chip_config_data")
+    # Use the package resource path instead of relative paths
+    chip_config_dir = os.path.join(os.path.dirname(__file__), "chip_config_data")
     registers_file = os.path.join(chip_config_dir, "device_name_to_sizing_registers.json")
 
     # Define the path to the subckt template file
-    subckt_template_file = os.path.join(os.path.dirname(__file__), "../subckt_templates/PK_set_sizes_template.cir")
+    subckt_template_file = os.path.join(os.path.dirname(__file__), "subckt_templates/PK_set_sizes_template.cir")
+
+    print(f"Looking for registers file at: {registers_file}")
+    print(f"Looking for template file at: {subckt_template_file}")
 
     # Load sizes and registers
     with open(sizes_file, "r") as f:

@@ -22,8 +22,8 @@ generate_switch_matrix_probe_subckt = "commandline.src.generate_switch_matrix_pr
 generate_pin_to_RBUS_SBUS_subckt = "commandline.src.generate_pin_to_RBUS_SBUS_subckt:main"
 generate_nodes_to_subckt = "commandline.src.generate_nodes_to_subckt:main"
 
-# [tool.setuptools]
-# package-dir = {"" = "commandline/src"}
-# 
-# [tool.setuptools.packages.find]
-# where = ["commandline/src"]
+[tool.setuptools]
+package-dir = {"" = "commandline/src"}
+
+[tool.setuptools.packages.find]
+where = ["commandline/src"]

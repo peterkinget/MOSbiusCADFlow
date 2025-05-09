@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mosbiusv2tools"
+version = "1.0.0"
+description = "Tools for generating SPICE subcircuits from JSON circuit descriptions and sizing files."
+readme = "README.md"
+readme-content-type = "text/markdown"
+license = { text = "MIT" }
+authors = [
+    { name = "Peter Kinget", email = "peter@kinget.net" }
+]
+homepage = "https://github.com/peterkinget/MOSbiusCADFlow"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+requires-python = ">=3.6"
+
+[project.scripts]
+generate_sizes_probe_subckt = "commandline.src.generate_sizes_probe_subckt:main"
+generate_switch_matrix_probe_subckt = "commandline.src.generate_switch_matrix_probe_subckt:main"
+generate_pin_to_RBUS_SBUS_subckt = "commandline.src.generate_pin_to_RBUS_SBUS_subckt:main"
+generate_nodes_to_subckt = "commandline.src.generate_nodes_to_subckt:main"
+
+[tool.setuptools]
+package-dir = {"" = "commandline/src"}
+
+[tool.setuptools.packages.find]
+where = ["commandline/src"]

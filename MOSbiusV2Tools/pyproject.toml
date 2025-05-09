@@ -23,7 +23,7 @@ generate_pin_to_RBUS_SBUS_subckt = "commandline.src.generate_pin_to_RBUS_SBUS_su
 generate_nodes_to_subckt = "commandline.src.generate_nodes_to_subckt:main"
 
 [tool.setuptools]
-package-dir = {"" = "commandline/src"}
+package-dir = {"" = "commandline"}
 
 [tool.setuptools.packages.find]
 where = ["commandline/src"]

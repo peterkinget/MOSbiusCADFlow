@@ -10,7 +10,7 @@ setup(
     author_email='peter@kinget.net',
     url='https://github.com/peterkinget/MOSbiusCADFlow',
     license='MIT',
-    packages=find_packages(where="MOSbisusV2Tools/MOSbiusV2Tools/commandline/src"),  # Look for packages in the "src" directory
+    packages=find_packages(where="./src"),  # Look for packages in the "src" directory
     package_dir={"": "src"},  # Map the "src" directory to the root namespace
     install_requires=[],
     entry_points={

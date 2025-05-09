@@ -73,7 +73,7 @@ def generate_sizes_probe_subckt(sizes_file, output_spice_file):
 
     print(f"SPICE netlist saved to {output_spice_file}")
 
-if __name__ == "__main__":
+def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Generate a SPICE subcircuit based on device sizes.")
@@ -86,3 +86,6 @@ if __name__ == "__main__":
         sizes_file=args.sizes_file,
         output_spice_file=args.output_spice_file
     )
+
+if __name__ == "__main__":
+    main()

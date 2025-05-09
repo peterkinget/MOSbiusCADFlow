@@ -11,7 +11,8 @@ setup(
     url='https://github.com/peterkinget/MOSbiusCADFlow',
     license='MIT',
     packages=find_packages(where="MOSbiusV2Tools/MOSbiusV2Tools/commandline"),
-    install_requires=open('commandline/requirements.txt').read().splitlines(),
+    # install_requires=open('commandline/requirements.txt').read().splitlines(),
+    install_requires=[],
     entry_points={
         'console_scripts': [
             'generate_sizes_probe_subckt=commandline.src.generate_sizes_probe_subckt:main',

@@ -6,13 +6,13 @@
 *
 
 .subckt NMOS_mobius D G S B M='M'
-.param W=4u L=0.5u LDIF=0.5u AD = {W*LDIF} AS = AD PS = {W+LDIF} PD = PS
-MN D G S B cmosn W=W L=L AD=AD AS=AD PD=PD PS=PS M={2*M}
+* .param W=4u L=0.5u LDIF=0.5u AD = {W*LDIF} AS = AD PS = {W+LDIF} PD = PS
+MN D G S B cmosn W=4u L=0.5u AD=2p AS=2p PD=4.5u PS=4.5u M={2*M}
 .ends
 
 .subckt PMOS_mobius D G S B M='M'
-.param W=4u L=0.5u LDIF=0.5u AD = {W*LDIF} AS = AD PS = {W+LDIF} PD = PS
-MP D G S B cmosp W=W L=L AD=AD AS=AD PD=PD PS=PS M={6*M}
+*.param W=4u L=0.5u LDIF=0.5u AD = {W*LDIF} AS = AD PS = {W+LDIF} PD = PS
+MP D G S B cmosp W=4u L=0.5u AD=2p AS=2p PD=4.5u PS=4.5u M={6*M}
 .ends
 
 .inc ./tsmc025_public.inc

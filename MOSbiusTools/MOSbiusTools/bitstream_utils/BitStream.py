@@ -120,6 +120,7 @@ class BitStream:
 
     #  public method to generate bsGen input lists from netlist file located in netlist_catalog (by setting active_buslist and active_pinlists attributes)
     def netlistInput(self, nfpath, debug=False):
+
         netlist = self._readNetlist(nfpath)
         ab_members = [[] for i in range(10)]
         ab_numbers = []
@@ -284,11 +285,15 @@ class BitStream:
         # create a list of strings for all instance def lines in netlist, ignore rest
         netlist_stripped = []
         for line in lines[1:]:
-            # if line[0] == "*" or line[0] == "\n":
-            #     return netlist_stripped
-            # PK select only the lines that start with XX which corresponds to Mobius subcircuits
-            if line[0:2] == 'XX':
+            # Select lines that start with XX or X§X which correspond to Mobius subcircuits
+            if line.startswith('XX') or line.startswith('X§X'):
                 netlist_stripped.append(line.split())
+    
+        # Output warning if no lines are found
+        if not netlist_stripped:
+            print(f"Warning: No lines starting with 'XX' or 'X§X' found in {nfp}")
+            print("This may indicate an empty or incorrectly formatted netlist file.")
+    
         return netlist_stripped
 
     #  private helper method identifies and returns active bus numbers from subckt instance port connections (returns 0 if not active bus)
@@ -303,7 +308,7 @@ class BitStream:
 
     #  private helper method returns the active pin # on the bus
     def _getActivePin(self, key, pidx):
-        ap = BitStream._subckt_pindict[key][pidx]
+        ap = BitStream._subckt_pindict[key.lower()][pidx]
         return ap
 
     # private helper method checks if power buses are present in the netlist

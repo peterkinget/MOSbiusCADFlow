@@ -17,13 +17,15 @@ import sys
 from MOSbiusTools.bitstream_utils.BitStream import BitStream
 
 
-def cir_to_connections(circ_filename, debug=False):
+def cir_to_connections(circ_filename, debug=False, prefixes=['XX', 'X§X', 'XAX']):
     # print(f"cir_to_connections debug is {debug}")
     example_bitstream = BitStream()
-    example_bitstream.netlistInput(circ_filename, debug=debug)
+    example_bitstream.netlistInput(circ_filename, debug=debug, prefixes=prefixes)
     connections = {}
     for i in range(len(example_bitstream.active_buslist)):
-        connections[f"{example_bitstream.active_buslist[i]}"] = example_bitstream.active_pinlists[i]
+        bus_number = example_bitstream.active_buslist[i]
+        pins = example_bitstream.active_pinlists[i]
+        connections[bus_number] = pins
 
     return connections
 
@@ -37,10 +39,11 @@ def write_connections(connections_filename, connections, debug=False):
         json.dump(connections, f)
 
 def main():
-    parser = argparse.ArgumentParser(description="Convert cir file to connections json file --- LOCAL")
+    parser = argparse.ArgumentParser(description="Convert cir file to connections json file (v0.1.3)")
     parser.add_argument('-i', '--input', default="circuit.cir", help="LTSpice netlist file")
     parser.add_argument('-o', '--output', default="connections.json", help="connections json file")
     parser.add_argument('-d', '--debug', action='store_true', help="Enable debug mode")
+    parser.add_argument('-p', '--prefixes', default="XX,X§X,XAX", help="Comma-separated list of line prefixes to match (default: XX,X§X,XAX)")
     # Check if any command-line arguments are provided
     if len(sys.argv) == 1:
         # No arguments provided, append '-h' for help
@@ -48,9 +51,12 @@ def main():
 
     args = parser.parse_args()
     
-    connections = cir_to_connections(args.input, debug=args.debug)
+    # Parse the prefixes from command line argument
+    prefixes = [prefix.strip() for prefix in args.prefixes.split(',')]
+    
+    connections = cir_to_connections(args.input, debug=args.debug, prefixes=prefixes)
     output_filename = args.output
-    write_connections(args.output, connections, debug=args.debug)
+    write_connections(output_filename, connections, debug=args.debug)
     
 if __name__ == "__main__":
     main()

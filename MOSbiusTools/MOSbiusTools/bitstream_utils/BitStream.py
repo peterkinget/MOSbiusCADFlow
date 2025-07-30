@@ -119,9 +119,9 @@ class BitStream:
         # return inputs, abuses
 
     #  public method to generate bsGen input lists from netlist file located in netlist_catalog (by setting active_buslist and active_pinlists attributes)
-    def netlistInput(self, nfpath, debug=False):
+    def netlistInput(self, nfpath, debug=False, prefixes=['XX', 'X§X', 'XAX']):
 
-        netlist = self._readNetlist(nfpath)
+        netlist = self._readNetlist(nfpath, prefixes)
         ab_members = [[] for i in range(10)]
         ab_numbers = []
 
@@ -278,20 +278,21 @@ class BitStream:
             
         return package_pins
     #  private helper method returns a stripped netlist that only contains the lines that define instance port connections
-    def _readNetlist(self, nfp):
+    def _readNetlist(self, nfp, prefixes=['XX', 'X§X', 'XAX']):
         with open(nfp, "r") as f:
             lines = f.readlines()
         f.close()
         # create a list of strings for all instance def lines in netlist, ignore rest
         netlist_stripped = []
         for line in lines[1:]:
-            # Select lines that start with XX or X§X which correspond to Mobius subcircuits
-            if line.startswith('XX') or line.startswith('X§X'):
+            # Select lines that start with any of the specified prefixes
+            if any(line.startswith(prefix) for prefix in prefixes):
                 netlist_stripped.append(line.split())
     
         # Output warning if no lines are found
         if not netlist_stripped:
-            print(f"Warning: No lines starting with 'XX' or 'X§X' found in {nfp}")
+            prefix_str = "', '".join(prefixes)
+            print(f"Warning: No lines starting with '{prefix_str}' found in {nfp}")
             print("This may indicate an empty or incorrectly formatted netlist file.")
     
         return netlist_stripped

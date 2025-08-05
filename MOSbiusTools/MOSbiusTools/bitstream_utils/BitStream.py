@@ -119,9 +119,23 @@ class BitStream:
         # return inputs, abuses
 
     #  public method to generate bsGen input lists from netlist file located in netlist_catalog (by setting active_buslist and active_pinlists attributes)
-    def netlistInput(self, nfpath, debug=False, prefixes=['XX', 'X§X', 'XAX']):
-
-        netlist = self._readNetlist(nfpath, prefixes)
+    def netlistInput(self, nfpath, debug=False, prefixes=['XX', 'X§X'], encoding=None):
+        """
+        Generate bitstream input lists from netlist file
+        
+        Args:
+            nfpath: Path to netlist file
+            debug: Enable debug output
+            prefixes: List of line prefixes to match
+            encoding: Explicit encoding to use (None for auto-detection)
+        """
+        if encoding:
+            # Use explicit encoding if provided
+            netlist = self._readNetlist_with_encoding(nfpath, prefixes, encoding)
+        else:
+            # Use auto-detection with fallbacks
+            netlist = self._readNetlist(nfpath, prefixes)
+            
         ab_members = [[] for i in range(10)]
         ab_numbers = []
 
@@ -159,6 +173,32 @@ class BitStream:
         self.active_buslist = ab_numbers
         self.active_pinlists = ab_members
         self._input_flag = True
+
+    def _readNetlist_with_encoding(self, nfp, prefixes, encoding):
+        """Read netlist with explicit encoding"""
+        try:
+            with open(nfp, "r", encoding=encoding) as f:
+                lines = f.readlines()
+        except (UnicodeDecodeError, UnicodeError) as e:
+            raise UnicodeError(f"Could not decode file {nfp} with {encoding} encoding: {e}")
+        except Exception as e:
+            raise IOError(f"Could not read file {nfp}: {e}")
+        
+        # create a list of strings for all instance def lines in netlist, ignore rest
+        netlist_stripped = []
+        for line in lines[1:]:
+            # Select lines that start with any of the specified prefixes
+            if any(line.startswith(prefix) for prefix in prefixes):
+                netlist_stripped.append(line.split())
+    
+        # Output warning if no lines are found
+        if not netlist_stripped:
+            prefix_str = "', '".join(prefixes)
+            print(f"Warning: No lines starting with '{prefix_str}' found in {nfp}")
+            print("This may indicate an empty or incorrectly formatted netlist file.")
+            print(f"File was read using {encoding} encoding")
+    
+        return netlist_stripped
 
     #  public method to generate output bits from active bus and pin lists (by setting bitmatrix and bitstream attributes)
     def generateBitstream(self):
@@ -278,10 +318,30 @@ class BitStream:
             
         return package_pins
     #  private helper method returns a stripped netlist that only contains the lines that define instance port connections
-    def _readNetlist(self, nfp, prefixes=['XX', 'X§X', 'XAX']):
-        with open(nfp, "r") as f:
-            lines = f.readlines()
-        f.close()
+    def _readNetlist(self, nfp, prefixes=['XX', 'X§X']):
+        """Read netlist with robust encoding handling for cross-platform compatibility"""
+        
+        # Try multiple encodings in order of preference
+        encodings_to_try = ['utf-8', 'utf-8-sig', 'cp1252', 'latin1', 'ascii']
+        
+        lines = None
+        encoding_used = None
+        
+        for encoding in encodings_to_try:
+            try:
+                with open(nfp, "r", encoding=encoding) as f:
+                    lines = f.readlines()
+                encoding_used = encoding
+                break
+            except (UnicodeDecodeError, UnicodeError):
+                continue
+            except Exception as e:
+                # Handle other file reading errors
+                raise IOError(f"Could not read file {nfp}: {e}")
+        
+        if lines is None:
+            raise UnicodeError(f"Could not decode file {nfp} with any supported encoding: {encodings_to_try}")
+        
         # create a list of strings for all instance def lines in netlist, ignore rest
         netlist_stripped = []
         for line in lines[1:]:
@@ -294,6 +354,8 @@ class BitStream:
             prefix_str = "', '".join(prefixes)
             print(f"Warning: No lines starting with '{prefix_str}' found in {nfp}")
             print("This may indicate an empty or incorrectly formatted netlist file.")
+            if encoding_used:
+                print(f"File was successfully read using {encoding_used} encoding")
     
         return netlist_stripped
 

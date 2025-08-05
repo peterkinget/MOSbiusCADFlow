@@ -1,0 +1,116 @@
+* /Users/peterkinget/Library/CloudStorage/GoogleDrive-peter.kinget@gmail.com/My Drive/Latt3350REGIS/MOSbius_chip_library/MOSbius_chip_RO_2.asc
+XX1 BUS01 BUS02 nmos_currentmirror
+XX4 BUS04 BUS05 BUS09 dp_nmos_1x_a
+XX5 BUS05 BUS06 BUS09 dp_nmos_1x_b
+XX2 BUS02 BUS03 cs_nmos_4x_a
+XX6 BUS06 BUS07 BUS09 BUS09 dp_nmos_4x_a
+XX7 BUS07 BUS08 BUS09 BUS09 dp_nmos_4x_b
+V1 VDD 0 {VDD}
+XX9 BUS03 BUS02 cs_pmos_4x_a
+XX10 BUS04 BUS03 cs_pmos_4x_b
+XX11 BUS01 BUS02 pmos_currentmirror
+XX3 BUS03 BUS04 cs_nmos_4x_b
+XX13 BUS07 BUS06 BUS10 BUS10 dp_pmos_4x_a
+XX14 BUS08 BUS07 BUS10 BUS10 dp_pmos_4x_b
+XX15 BUS06 BUS05 BUS10 dp_pmos_1x_b
+XX16 BUS05 BUS04 BUS10 dp_pmos_1x_a
+XX17 BUS08 BUS08 N002 inverter_a
+XX18 N002 N002 BUS01 inverter_b
+XX21 BUS10 chip_vdd
+XX22 BUS09 chip_vss
+
+* block symbol definitions
+.subckt nmos_currentmirror in out
+XM1 in in 0 0 NMOS_mobius m=1
+XM2 out in 0 0 NMOS_mobius m=1
+.ends nmos_currentmirror
+
+.subckt dp_nmos_1x_a gate drain source
+XM1 drain gate source 0 NMOS_mobius m=1
+.ends dp_nmos_1x_a
+
+.subckt dp_nmos_1x_b gate drain source
+XM1 drain gate source 0 NMOS_mobius m=1
+.ends dp_nmos_1x_b
+
+.subckt cs_nmos_4x_a gate drain
+XM1 drain gate 0 0 NMOS_mobius m=4
+.ends cs_nmos_4x_a
+
+.subckt dp_nmos_4x_a gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_a
+
+.subckt dp_nmos_4x_b gate drain source substrate
+XM1 drain gate source substrate NMOS_mobius m=4
+.ends dp_nmos_4x_b
+
+.subckt cs_pmos_4x_a drain gate
+XM1 drain gate VDD VDD PMOS_mobius m=4
+.ends cs_pmos_4x_a
+
+.subckt cs_pmos_4x_b drain gate
+XM1 drain gate VDD VDD PMOS_mobius m=4
+.ends cs_pmos_4x_b
+
+.subckt pmos_currentmirror gate drain
+XM1 gate gate VDD VDD PMOS_mobius m=1
+XM2 drain gate VDD VDD PMOS_mobius m=1
+.ends pmos_currentmirror
+
+.subckt cs_nmos_4x_b gate drain
+XM1 drain gate 0 0 NMOS_mobius m=4
+.ends cs_nmos_4x_b
+
+.subckt dp_pmos_4x_a drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_a
+
+.subckt dp_pmos_4x_b drain gate source nwell
+XM1 drain gate source nwell PMOS_mobius m=4
+.ends dp_pmos_4x_b
+
+.subckt dp_pmos_1x_b drain gate source
+XM1 drain gate source VDD PMOS_mobius m=1
+.ends dp_pmos_1x_b
+
+.subckt dp_pmos_1x_a drain gate source
+XM1 drain gate source VDD PMOS_mobius m=1
+.ends dp_pmos_1x_a
+
+.subckt inverter_a inn inp out
+XM1 out inn 0 0 NMOS_mobius m=16
+XM2 out inp VDD VDD PMOS_mobius m=16
+.ends inverter_a
+
+.subckt inverter_b inn inp out
+XM1 out inn 0 0 NMOS_mobius m=16
+XM2 out inp VDD VDD PMOS_mobius m=16
+.ends inverter_b
+
+.subckt chip_vdd chip_vdd
+R1 chip_vdd VDD .000001
+.ends chip_vdd
+
+.subckt chip_vss chip_vss
+R1 chip_vss 0 0.000001
+.ends chip_vss
+
+.global VDD
+.param VDD = 2.5
+.inc transistor_models_tsmc025_public.inc
+.ic v(bus01)=2.5
+* Common Source
+* Differential Pairs\n1x
+* Differential Pairs\n4x
+* Current Mirror\n1 : 1
+* Current Mirror Array
+* Inverters\n16x
+* .op
+* Note: Do not connect a BUS directly to VDD or VSS even with a jumper. \nUse the Chip_VDD and Chip_VSS.
+* Note: The numbers on the symbols correspond to the PCB pin numbers.
+* Pull your pMOS bias current from this node
+* Push your nMOS bias current into this node
+.tran 1u
+.backanno
+.end

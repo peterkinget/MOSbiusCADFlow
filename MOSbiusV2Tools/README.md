@@ -12,7 +12,7 @@ MOSbiusV2Tools is a Python package that provides command-line tools for generati
 You can install the package directly from GitHub using pip:
 
 ```bash
-pip install git+https://github.com/peterkinget/MOSbiusCADFlow.git@MOSbiusV2Tools_pkdist#subdirectory=MOSbiusV2Tools
+pip install git+https://github.com/peterkinget/MOSbiusCADFlow.git@MOSbiusV2Tools_dist#subdirectory=MOSbiusV2Tools
 ```
 
 This branch contains fixes for properly including the required configuration and template files in the installation.
@@ -292,5 +292,6 @@ Example JSON files are provided in the `examples` directory:
 - `all_transistors_4x_sizes.json` - Example device sizing file
 
 ## License
+
 
 This project is licensed under the MIT License.
